@@ -22,6 +22,16 @@ const userSchema = mongoose.Schema({
         type: String,
         required: [true, 'Please enter the  adress']
     },
+    password: {
+        type: String,
+        required: [true, 'Please Password']
+    },
+
+    role: {
+        type: String,
+        enum: ['admin', 'user'],
+        default: 'user'
+    },
 })
 
 export default mongoose.model('User', userSchema)
