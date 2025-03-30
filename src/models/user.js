@@ -12,7 +12,11 @@ const userSchema = mongoose.Schema({
     },
     email: {
         type: String,
-        required: [true, 'Please enter the  email']
+        required: [true, 'Please enter the  email'],
+        match: [
+            /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+            'Please add a valid email'
+          ]
     },
     phoneNumber: {
         type: String,

@@ -17,6 +17,14 @@ const participationSchema = mongoose.Schema({
         type: Number,
         required: true
     },
+    month: {
+        type: number,
+        required: true
+    },
+    year: {
+        type: number,
+        required: true
+    },
     
     
 });
