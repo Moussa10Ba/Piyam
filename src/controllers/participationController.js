@@ -12,10 +12,9 @@ export const getAllParticipations = async (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 }
-
 export const createParticipation = async (req, res) => {
     try {
-        const { userId, status , amount} = req.body;
+        const { userId, status , amount, year, month} = req.body;
         if (!userId || !status, !amount) {
             return res.status(400).json({ error: "All fields are required" });
         }
@@ -23,7 +22,7 @@ export const createParticipation = async (req, res) => {
         if (!user) {
             return res.status(400).json({ error: "User not found" });
         }
-        const newParticipation = new Participation({ userId, status, amount });
+        const newParticipation = new Participation({ userId, status, amount, year, month });
         // Check if the userId exists in the User collection
         
         await newParticipation.save();
@@ -45,6 +44,7 @@ export const deleteParticipation = async (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 }
+
 export const updateParticipation = async (req, res) => {
     try {
         const { userId, status , amount} = req.body;

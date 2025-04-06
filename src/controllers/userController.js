@@ -59,8 +59,23 @@ export const deleteUser = async (req, res)=>{
         }
         return res.status(200).json({id : id});
     } catch (error) {
-        
+        console.log('Impossible to delete user');
+        res.status(500).json({message: 'Impossible to delete user'});
     }
+}
+
+export const getUserById = async (req, res)=>{
+    try {
+        const {id} = req.params;
+        const user = await User.findById(id);
+        if(!user){
+            return res.status(404).json({message: 'User Not Found'});
+        }
+        return res.status(200).json({user: user});
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({message: 'Internal Server Error'});
+    }   
 }
 
 export const updateUser = async (req, res)=>{
@@ -70,7 +85,8 @@ export const updateUser = async (req, res)=>{
         const {id} = req.params;
         const updatedUser = await User.findByIdAndUpdate(
             id, 
-            { $set :{
+            { 
+                $set :{
                 firstName: firstName, 
                 lastName: lastName,
                  email: email,
@@ -111,6 +127,6 @@ export const loginUser =  async(req, res)=>{
 
     }catch(error){
         console.log(error);
-        res.status(500).json({message: 'Internal server error'});
+        res.status(500).json({message: 'Could not login user'});
     }
 }
